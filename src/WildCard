@@ -1,0 +1,148 @@
+In Java, wildcards in generics provide a way to use generic types more flexibly. Wildcards are represented by the question mark (`?`) and can be used in three main ways:
+
+1. **Unbounded Wildcard (`?`)**
+2. **Upper Bounded Wildcard (`? extends Type`)**
+3. **Lower Bounded Wildcard (`? super Type`)**
+
+### Unbounded Wildcard (`?`)
+
+**Usage**: Represents an unknown type.
+
+**Example**:
+```java
+public void printList(List<?> list) {
+    for (Object elem : list) {
+        System.out.println(elem);
+    }
+}
+
+// Usage
+List<String> stringList = Arrays.asList("Hello", "World");
+printList(stringList);
+List<Integer> intList = Arrays.asList(1, 2, 3);
+printList(intList);
+```
+
+**Explanation**: The unbounded wildcard `?` is used when you want to accept any type. Since the type is unknown, you can only perform operations that are valid for any object (e.g., `Object` methods).
+
+### Upper Bounded Wildcard (`? extends Type`)
+
+**Usage**: Represents a type that is a subtype of `Type`.
+
+**Example**:
+```java
+public void printNumbers(List<? extends Number> list) {
+    for (Number num : list) {
+        System.out.println(num);
+    }
+}
+
+// Usage
+List<Integer> intList = Arrays.asList(1, 2, 3);
+printNumbers(intList);
+List<Double> doubleList = Arrays.asList(1.1, 2.2, 3.3);
+printNumbers(doubleList);
+```
+
+**Explanation**: The upper bounded wildcard `? extends Type` restricts the unknown type to be a subtype of `Type`. This allows you to read items from the collection as `Type`, but you cannot add items because you don't know the exact subtype.
+
+### Lower Bounded Wildcard (`? super Type`)
+
+**Usage**: Represents a type that is a supertype of `Type`.
+
+**Example**:
+```java
+public void addNumbers(List<? super Integer> list) {
+    list.add(1);
+    list.add(2);
+}
+
+// Usage
+List<Number> numberList = new ArrayList<>();
+addNumbers(numberList);
+List<Object> objectList = new ArrayList<>();
+addNumbers(objectList);
+```
+
+**Explanation**: The lower bounded wildcard `? super Type` restricts the unknown type to be a supertype of `Type`. This allows you to add items of type `Type` or its subtypes to the collection.
+
+### Why You Cannot Add Elements to Unbounded and Upper Bounded Wildcards
+
+**Unbounded Wildcard (`?`)**:
+- When using an unbounded wildcard, the type is completely unknown. This means the compiler cannot ensure type safety if you try to add an element to the collection because it doesn't know the element's type matches the collection's type.
+
+**Upper Bounded Wildcard (`? extends Type`)**:
+- When using an upper bounded wildcard, the type is restricted to a subtype of `Type`. However, you cannot add elements to the collection because the exact type is not known. For instance, if you have a `List<? extends Number>`, the list could be a `List<Integer>`, `List<Double>`, etc. Adding an element would be unsafe because it might not match the actual subtype of the list.
+
+### Examples and Code
+
+#### Unbounded Wildcard
+```java
+public class WildcardExample {
+
+    public void printElements(List<?> list) {
+        for (Object element : list) {
+            System.out.println(element);
+        }
+    }
+
+    public static void main(String[] args) {
+        WildcardExample example = new WildcardExample();
+
+        List<String> strings = Arrays.asList("one", "two", "three");
+        example.printElements(strings);
+
+        List<Integer> integers = Arrays.asList(1, 2, 3);
+        example.printElements(integers);
+    }
+}
+```
+
+#### Upper Bounded Wildcard
+```java
+public class UpperBoundExample {
+
+    public void printNumbers(List<? extends Number> list) {
+        for (Number number : list) {
+            System.out.println(number);
+        }
+    }
+
+    public static void main(String[] args) {
+        UpperBoundExample example = new UpperBoundExample();
+
+        List<Integer> integers = Arrays.asList(1, 2, 3);
+        example.printNumbers(integers);
+
+        List<Double> doubles = Arrays.asList(1.1, 2.2, 3.3);
+        example.printNumbers(doubles);
+    }
+}
+```
+
+#### Lower Bounded Wildcard
+```java
+public class LowerBoundExample {
+
+    public void addNumbers(List<? super Integer> list) {
+        list.add(1);
+        list.add(2);
+    }
+
+    public static void main(String[] args) {
+        LowerBoundExample example = new LowerBoundExample();
+
+        List<Number> numbers = new ArrayList<>();
+        example.addNumbers(numbers);
+
+        List<Object> objects = new ArrayList<>();
+        example.addNumbers(objects);
+    }
+}
+```
+
+### Summary
+
+- **Unbounded Wildcard (`?`)**: Use when the type can be anything. Safe for reading as `Object`, but not for adding elements.
+- **Upper Bounded Wildcard (`? extends Type`)**: Use when the type is restricted to a subtype of `Type`. Safe for reading as `Type`, but not for adding elements.
+- **Lower Bounded Wildcard (`? super Type`)**: Use when the type is restricted to a supertype of `Type`. Safe for adding elements of `Type` or its subtypes, but reading is limited to `Object` or the lower bound type.
