@@ -1,5 +1,5 @@
-In Java, generics provide a way to create classes, interfaces, and methods that operate on types specified by the user. Different type parameter notations have become standard, each with a specific conventional use that helps make the code more readable and maintainable. Here's a detailed explanation of common type parameter notations and their typical usage, along with examples:
-
+/*
+*/
 ### Common Type Parameter Notations and Their Examples
 
 1. **`E` (Element)**

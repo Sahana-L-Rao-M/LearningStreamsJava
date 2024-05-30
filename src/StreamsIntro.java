@@ -1,7 +1,7 @@
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.List;
+import java.io.File;
+import java.io.FileFilter;
+import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 /*
@@ -17,6 +17,9 @@ import java.util.stream.Stream;
     +Declarative way of programming - What and not how
     +Stream computations are optimised - Tells how to fetch and process elements
  */
+class Dog{
+    private String name;
+}
 public class StreamsIntro {
     public static void main(String[] args) {
         //Stream
@@ -68,4 +71,5 @@ public class StreamsIntro {
         System.out.println("Combine set of fruits count: "+Stream.concat(fruitsFirst,fruitsSecond).count());
 
     }
+
 }
