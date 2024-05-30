@@ -1,6 +1,13 @@
 import java.util.*;
 import java.util.function.Function;
+/*
+In Java, wildcards in generics provide a way to use generic types more flexibly.
+Wildcards are represented by the question mark (`?`) and can be used in three main ways:
 
+1. **Unbounded Wildcard (`?`)**
+2. **Upper Bounded Wildcard (`? extends Type`)**
+3. **Lower Bounded Wildcard (`? super Type`)**
+*/
 public class WildCard {
 
     public static void main(String[] args)
